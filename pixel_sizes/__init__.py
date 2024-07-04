@@ -6,10 +6,10 @@ class Size:
     width: int
     height: int
 
-    def aspect_ratio(self):
+    def aspect_ratio(self) -> float:
         return self.width / self.height
 
-    def rotate(self):
+    def rotate(self) -> "Size":
         return Size(self.height, self.width)
 
 
