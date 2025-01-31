@@ -1,5 +1,8 @@
 from dataclasses import dataclass
 
+# https://packaging-guide.openastronomy.org/en/latest/advanced/versioning.html
+from ._version import __version__
+
 
 @dataclass(frozen=True)
 class Size:
@@ -26,4 +29,4 @@ SIZES = {
 }
 
 
-__all__ = ["Size", "SIZES"]
+__all__ = ["Size", "SIZES", "__version__"]
