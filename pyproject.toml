@@ -1,30 +1,45 @@
-[tool.poetry]
-# I use poetry as just a package manager.
-# So, I only write the settings that poetry needs.
-# The actual package metadata is written in setup.cfg.
-# I use pypa/build for packaging.
+[project]
 name = "pixel_sizes"
-version = "0.0.0"
-description = ""
-authors = []
-packages = [
-    { include = "pixel_sizes" },
+dynamic = ["version"]
+requires-python = ">=3.9"
+dependencies = []
+description = "Pixel sizes"
+readme = {file = "README.md", content-type = "text/markdown"}
+license = { file = "LICENSE" }
+authors = [
+    {name = "Yui KITSU", email = "kitsuyui+github@kitsuyui.com"}
 ]
+classifiers = [
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries",
+]
+[project.urls]
+Homepage = "https://github.com/kitsuyui/python-pixel-sizes"
+
+[tool.setuptools]
+package-data = { "pixel_sizes" = ["py.typed"], "*" = ["README.md, LICENSE"] }
+package-dir = { "pixel_sizes" = "pixel_sizes" }
 
 [tool.setuptools_scm]
 write_to = "pixel_sizes/_version.py"
+version_scheme = "only-version"
+local_scheme = "no-local-version"
 
-[tool.poetry.dependencies]
-python = "^3.9"
-
-[tool.poetry.group.dev.dependencies]
-ruff = "*"
-pytest = "*"
-pytest-cov = "*"
-poethepoet = "*"
-setuptools-scm = "*"
-build = "*"
-mypy = "*"
+[tool.uv]
+dev-dependencies = [
+    "pytest",
+    "pytest-cov",
+    "poethepoet",
+    "setuptools-scm",
+    "ruff",
+    "mypy",
+]
 
 [build-system]
 requires = [
@@ -51,3 +66,6 @@ ignore_missing_imports = false
 
 [tool.ruff]
 line-length = 79
+
+[tool.flake8]
+ignore = "E203"
