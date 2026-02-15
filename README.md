@@ -1,6 +1,6 @@
 # python-pixel-sizes
 
-[![codecov](https://codecov.io/gh/kitsuyui/python-pixel-sizes/graph/badge.svg?token=830WMASKHU)](https://codecov.io/gh/kitsuyui/python-pixel-sizes)
+![Coverage](https://raw.githubusercontent.com/kitsuyui/octocov-central/main/badges/kitsuyui/python-pixel-sizes/coverage.svg)
 
 ## Usage
 
