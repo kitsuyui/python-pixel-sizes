@@ -1,4 +1,4 @@
-from pixel_sizes import Size, SIZES
+from pixel_sizes import SIZES, Size
 
 
 def test_sizes() -> None:

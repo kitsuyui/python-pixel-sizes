@@ -1,5 +1,5 @@
-from dataclasses import dataclass
 import math
+from dataclasses import dataclass
 
 # https://packaging-guide.openastronomy.org/en/latest/advanced/versioning.html
 from ._version import __version__
@@ -36,7 +36,8 @@ class Size:
         return Size(self.height, self.width)
 
     def scale(self, factor: int) -> "Size":
-        """Returns a new Size object with the width and height scaled by the given factor.
+        """Returns a new Size object with scaled width and height.
+
         Example: 1920x1080, factor=2 => 3840x2160
         """
         return Size(self.width * factor, self.height * factor)
@@ -98,4 +99,4 @@ SIZES = {
     "UHDTV2": Size(7680, 4320),
 }
 
-__all__ = ["Size", "SIZES", "__version__"]
+__all__ = ["SIZES", "Size", "__version__"]
