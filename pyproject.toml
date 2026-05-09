@@ -23,7 +23,7 @@ classifiers = [
 Homepage = "https://github.com/kitsuyui/python-pixel-sizes"
 
 [tool.setuptools]
-package-data = { "pixel_sizes" = ["py.typed"], "*" = ["README.md, LICENSE"] }
+package-data = { "pixel_sizes" = ["py.typed"] }
 package-dir = { "pixel_sizes" = "pixel_sizes" }
 
 [tool.setuptools_scm]
