@@ -59,3 +59,5 @@ def test_size_scale() -> None:
     # float factor: rounds to nearest integer pixel
     assert size.scale(0.5) == Size(960, 540)
     assert size.scale(1.5) == Size(2880, 1620)
+    # banker's rounding (round-half-to-even): 4.5 rounds to 4, not 5
+    assert Size(3, 2).scale(1.5) == Size(4, 3)
