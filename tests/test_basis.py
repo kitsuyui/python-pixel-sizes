@@ -1,3 +1,5 @@
+import pytest
+
 from pixel_sizes import SIZES, Size
 
 
@@ -52,3 +54,16 @@ def test_size_scale() -> None:
     assert size.scale(8) == Size(15360, 8640)
     assert SIZES["Full HD"].scale(2) == SIZES["4K UHD"]
     assert SIZES["4K UHD"].scale(2) == SIZES["8K UHD"]
+    # float factor: rounds to nearest integer pixel
+    assert size.scale(0.5) == Size(960, 540)
+    assert size.scale(1.5) == Size(2880, 1620)
+
+
+def test_size_scale_invalid_factor() -> None:
+    size = Size(1920, 1080)
+    with pytest.raises(ValueError, match="scale factor must be positive"):
+        size.scale(0)
+    with pytest.raises(ValueError, match="scale factor must be positive"):
+        size.scale(-1)
+    with pytest.raises(ValueError, match="scale factor must be positive"):
+        size.scale(-0.5)
