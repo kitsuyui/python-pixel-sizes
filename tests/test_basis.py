@@ -41,7 +41,8 @@ def test_size_aspect_ratio() -> None:
     size = Size(1920, 1080)
     assert size.aspect_ratio() == 16 / 9
     assert size.aspect_ratio_fraction() == (16, 9)
-    assert size.aspect_ratio_two() == (16, 9)  # backward compat alias
+    with pytest.warns(DeprecationWarning):
+        assert size.aspect_ratio_two() == (16, 9)  # backward compat alias
 
     size = Size(1280, 720)
     assert size.aspect_ratio() == 16 / 9
