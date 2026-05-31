@@ -1,4 +1,4 @@
-from pixel_sizes import SIZES, Size
+from pixel_sizes import CANONICAL_SIZES, SIZES, Size
 
 
 def test_sizes() -> None:
@@ -39,6 +39,20 @@ def test_size_aspect_ratio() -> None:
     assert SIZES["HD+"].aspect_ratio_two() == (16, 9)
     assert SIZES["HD+"] == SIZES["WXGA++"]
     assert SIZES["WXGA++"].aspect_ratio_two() == (16, 9)
+
+
+def test_canonical_sizes_unique_values() -> None:
+    values = list(CANONICAL_SIZES.values())
+    assert len(values) == len(set(values))
+
+
+def test_canonical_sizes_keys_in_sizes() -> None:
+    assert CANONICAL_SIZES.keys() <= SIZES.keys()
+
+
+def test_sizes_has_duplicate_values() -> None:
+    all_values = list(SIZES.values())
+    assert len(all_values) > len(set(all_values))
 
 
 def test_size_scale() -> None:
