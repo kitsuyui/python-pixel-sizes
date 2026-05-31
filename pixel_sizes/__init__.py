@@ -16,6 +16,16 @@ class Size:
     width: int
     height: int
 
+    def __post_init__(self) -> None:  # noqa: C901
+        if self.width <= 0:
+            raise ValueError(
+                f"width must be a positive integer, got {self.width!r}",
+            )
+        if self.height <= 0:
+            raise ValueError(
+                f"height must be a positive integer, got {self.height!r}",
+            )
+
     def aspect_ratio(self) -> float:
         """Returns the aspect ratio as a float.
         Example: 1920x1080 => 16/9 => 1.7777777777777777
