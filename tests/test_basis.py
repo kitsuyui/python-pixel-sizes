@@ -1,3 +1,5 @@
+import pytest
+
 from pixel_sizes import SIZES, Size
 
 
@@ -39,6 +41,13 @@ def test_size_aspect_ratio() -> None:
     assert SIZES["HD+"].aspect_ratio_two() == (16, 9)
     assert SIZES["HD+"] == SIZES["WXGA++"]
     assert SIZES["WXGA++"].aspect_ratio_two() == (16, 9)
+
+
+def test_size_aspect_ratio_zero_height() -> None:
+    with pytest.raises(ZeroDivisionError):
+        Size(1920, 0).aspect_ratio()
+    with pytest.raises(ZeroDivisionError):
+        Size(1920, 0).aspect_ratio_two()
 
 
 def test_size_scale() -> None:
