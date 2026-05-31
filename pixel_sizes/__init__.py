@@ -60,9 +60,14 @@ class Size:
     def scale(self, factor: int | float) -> "Size":  # noqa: C901
         """Returns a new Size object with scaled width and height.
 
-        Non-integer factors are rounded to the nearest integer pixel.
+        Non-integer factors are rounded using Python's built-in round(),
+        which applies round-half-to-even (banker's rounding, IEEE 754).
+        When a scaled dimension lands exactly on 0.5, it rounds toward the
+        nearest even integer rather than always rounding up.
+
         Example: 1920x1080, factor=2 => 3840x2160
         Example: 1920x1080, factor=0.5 => 960x540
+        Example: Size(3, 2).scale(1.5) => Size(4, 3)  # 4.5 rounds to 4 (even)
         """
         if factor <= 0:
             raise ValueError(f"scale factor must be positive, got {factor!r}")
