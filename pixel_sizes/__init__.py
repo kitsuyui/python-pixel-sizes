@@ -32,13 +32,18 @@ class Size:
         """
         return self.width / self.height
 
-    def aspect_ratio_two(self) -> tuple[int, int]:
-        """Returns the aspect ratio as a tuple of integers.
+    def aspect_ratio_fraction(self) -> tuple[int, int]:
+        """Returns the reduced aspect ratio as a (numerator, denominator).
+
         Example: 1920x1080 => (16, 9)
         """
         _ = self.width / self.height
         gcd = math.gcd(self.width, self.height)
         return self.width // gcd, self.height // gcd
+
+    def aspect_ratio_two(self) -> tuple[int, int]:
+        """Deprecated: use aspect_ratio_fraction() instead."""
+        return self.aspect_ratio_fraction()
 
     def rotate(self) -> "Size":
         """Returns a new Size object with the width and height swapped.

@@ -10,7 +10,7 @@ from pixel_sizes import SIZES
 SIZES['Full HD'].width   # 1920
 SIZES['Full HD'].height  # 1080
 SIZES['Full HD'].aspect_ratio()    # 16/9 == 1.7777777777777777
-SIZES['Full HD'].aspect_ratio_two()  # (16, 9)
+SIZES['Full HD'].aspect_ratio_fraction()  # (16, 9)
 SIZES['Full HD'].rotate()  # Size(width=1080, height=1920)
 SIZES['Full HD'].scale(2)  # Size(width=3840, height=2160)
 ```
@@ -24,9 +24,9 @@ SIZES['Full HD'].scale(2)  # Size(width=3840, height=2160)
 | `width: int` | Width in pixels |
 | `height: int` | Height in pixels |
 | `aspect_ratio() -> float` | Width / height as a float |
-| `aspect_ratio_two() -> tuple[int, int]` | Aspect ratio reduced to lowest terms, e.g. `(16, 9)` |
+| `aspect_ratio_fraction() -> tuple[int, int]` | Aspect ratio reduced to lowest terms, e.g. `(16, 9)` |
 | `rotate() -> Size` | New `Size` with width and height swapped |
-| `scale(factor: int) -> Size` | New `Size` multiplied by *factor* |
+| `scale(factor: int \| float) -> Size` | New `Size` multiplied by *factor* |
 
 ### `SIZES`
 

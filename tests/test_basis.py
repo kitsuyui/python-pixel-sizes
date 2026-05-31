@@ -40,27 +40,28 @@ def test_size_rotate() -> None:
 def test_size_aspect_ratio() -> None:
     size = Size(1920, 1080)
     assert size.aspect_ratio() == 16 / 9
-    assert size.aspect_ratio_two() == (16, 9)
+    assert size.aspect_ratio_fraction() == (16, 9)
+    assert size.aspect_ratio_two() == (16, 9)  # backward compat alias
 
     size = Size(1280, 720)
     assert size.aspect_ratio() == 16 / 9
-    assert size.aspect_ratio_two() == (16, 9)
-    assert SIZES["Full HD"].aspect_ratio_two() == (16, 9)
-    assert SIZES["HD"].aspect_ratio_two() == (16, 9)
-    assert SIZES["QCIF"].aspect_ratio_two() == (11, 9)
-    assert SIZES["QVGA"].aspect_ratio_two() == (4, 3)
-    assert SIZES["HVGA"].aspect_ratio_two() == (3, 2)
-    assert SIZES["DCGA"].aspect_ratio_two() == (8, 5)
-    assert SIZES["VGA"].aspect_ratio_two() == (4, 3)
-    assert SIZES["SVGA"].aspect_ratio_two() == (4, 3)
-    assert SIZES["DoubleVGA"].aspect_ratio_two() == (3, 2)
-    assert SIZES["XGA"].aspect_ratio_two() == (4, 3)
-    assert SIZES["WXGA"].aspect_ratio_two() == (8, 5)
-    assert SIZES["FWXGA"].aspect_ratio_two() == (683, 384)
-    assert SIZES["WXGA+"].aspect_ratio_two() == (8, 5)
-    assert SIZES["HD+"].aspect_ratio_two() == (16, 9)
+    assert size.aspect_ratio_fraction() == (16, 9)
+    assert SIZES["Full HD"].aspect_ratio_fraction() == (16, 9)
+    assert SIZES["HD"].aspect_ratio_fraction() == (16, 9)
+    assert SIZES["QCIF"].aspect_ratio_fraction() == (11, 9)
+    assert SIZES["QVGA"].aspect_ratio_fraction() == (4, 3)
+    assert SIZES["HVGA"].aspect_ratio_fraction() == (3, 2)
+    assert SIZES["DCGA"].aspect_ratio_fraction() == (8, 5)
+    assert SIZES["VGA"].aspect_ratio_fraction() == (4, 3)
+    assert SIZES["SVGA"].aspect_ratio_fraction() == (4, 3)
+    assert SIZES["DoubleVGA"].aspect_ratio_fraction() == (3, 2)
+    assert SIZES["XGA"].aspect_ratio_fraction() == (4, 3)
+    assert SIZES["WXGA"].aspect_ratio_fraction() == (8, 5)
+    assert SIZES["FWXGA"].aspect_ratio_fraction() == (683, 384)
+    assert SIZES["WXGA+"].aspect_ratio_fraction() == (8, 5)
+    assert SIZES["HD+"].aspect_ratio_fraction() == (16, 9)
     assert SIZES["HD+"] == SIZES["WXGA++"]
-    assert SIZES["WXGA++"].aspect_ratio_two() == (16, 9)
+    assert SIZES["WXGA++"].aspect_ratio_fraction() == (16, 9)
 
 
 def test_size_scale() -> None:
