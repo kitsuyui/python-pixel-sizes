@@ -1,4 +1,5 @@
 import math
+import warnings
 from dataclasses import dataclass
 
 # https://packaging-guide.openastronomy.org/en/latest/advanced/versioning.html
@@ -32,6 +33,11 @@ class Size:
 
     def aspect_ratio_two(self) -> tuple[int, int]:
         """Deprecated: use aspect_ratio_fraction() instead."""
+        warnings.warn(
+            "aspect_ratio_two() is deprecated; use aspect_ratio_fraction().",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         return self.aspect_ratio_fraction()
 
     def rotate(self) -> "Size":
