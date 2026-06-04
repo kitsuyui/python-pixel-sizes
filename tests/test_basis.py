@@ -3,6 +3,26 @@ import pytest
 from pixel_sizes import SIZES, Size
 
 
+def test_size_validation_zero_width() -> None:
+    with pytest.raises(ValueError, match="width"):
+        Size(0, 1080)
+
+
+def test_size_validation_zero_height() -> None:
+    with pytest.raises(ValueError, match="height"):
+        Size(1920, 0)
+
+
+def test_size_validation_negative_width() -> None:
+    with pytest.raises(ValueError, match="width"):
+        Size(-1, 1080)
+
+
+def test_size_validation_negative_height() -> None:
+    with pytest.raises(ValueError, match="height"):
+        Size(1920, -1)
+
+
 def test_sizes() -> None:
     assert SIZES["Full HD"].rotate() == Size(1080, 1920)
     assert SIZES["HD"].rotate() == Size(720, 1280)
