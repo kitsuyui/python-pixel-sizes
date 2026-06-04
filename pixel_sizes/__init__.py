@@ -60,7 +60,9 @@ SIZES = {
     "DCGA": Size(640, 400),
     "VGA": Size(640, 480),
     "SVGA": Size(800, 600),
-    "WSVGA": Size(1024, 600),  # 2 versions
+    "WSVGA": Size(
+        1024, 600,
+    ),  # 2 versions exist: 1024x600 and 1024x576; using 1024x600
     "DoubleVGA": Size(960, 640),
     "XGA": Size(1024, 768),
     "HD 720p": Size(1280, 720),
