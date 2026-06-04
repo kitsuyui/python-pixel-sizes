@@ -26,6 +26,7 @@ class Size:
         """Returns the aspect ratio as a tuple of integers.
         Example: 1920x1080 => (16, 9)
         """
+        _ = self.width / self.height
         gcd = math.gcd(self.width, self.height)
         return self.width // gcd, self.height // gcd
 
