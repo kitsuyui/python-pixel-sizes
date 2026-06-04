@@ -1,4 +1,26 @@
+import pytest
+
 from pixel_sizes import CANONICAL_SIZES, SIZES, Size
+
+
+def test_size_validation_zero_width() -> None:
+    with pytest.raises(ValueError, match="width"):
+        Size(0, 1080)
+
+
+def test_size_validation_zero_height() -> None:
+    with pytest.raises(ValueError, match="height"):
+        Size(1920, 0)
+
+
+def test_size_validation_negative_width() -> None:
+    with pytest.raises(ValueError, match="width"):
+        Size(-1, 1080)
+
+
+def test_size_validation_negative_height() -> None:
+    with pytest.raises(ValueError, match="height"):
+        Size(1920, -1)
 
 
 def test_sizes() -> None:
@@ -55,6 +77,13 @@ def test_sizes_has_duplicate_values() -> None:
     assert len(all_values) > len(set(all_values))
 
 
+def test_size_aspect_ratio_zero_height() -> None:
+    with pytest.raises(ZeroDivisionError):
+        Size(1920, 0).aspect_ratio()
+    with pytest.raises(ZeroDivisionError):
+        Size(1920, 0).aspect_ratio_two()
+
+
 def test_size_scale() -> None:
     size = Size(1920, 1080)
     assert size.scale(2) == Size(3840, 2160)
@@ -66,3 +95,16 @@ def test_size_scale() -> None:
     assert size.scale(8) == Size(15360, 8640)
     assert SIZES["Full HD"].scale(2) == SIZES["4K UHD"]
     assert SIZES["4K UHD"].scale(2) == SIZES["8K UHD"]
+    # float factor: rounds to nearest integer pixel
+    assert size.scale(0.5) == Size(960, 540)
+    assert size.scale(1.5) == Size(2880, 1620)
+
+
+def test_size_scale_invalid_factor() -> None:
+    size = Size(1920, 1080)
+    with pytest.raises(ValueError, match="scale factor must be positive"):
+        size.scale(0)
+    with pytest.raises(ValueError, match="scale factor must be positive"):
+        size.scale(-1)
+    with pytest.raises(ValueError, match="scale factor must be positive"):
+        size.scale(-0.5)

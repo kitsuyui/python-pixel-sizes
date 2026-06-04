@@ -16,6 +16,16 @@ class Size:
     width: int
     height: int
 
+    def __post_init__(self) -> None:  # noqa: C901
+        if self.width <= 0:
+            raise ValueError(
+                f"width must be a positive integer, got {self.width!r}",
+            )
+        if self.height <= 0:
+            raise ValueError(
+                f"height must be a positive integer, got {self.height!r}",
+            )
+
     def aspect_ratio(self) -> float:
         """Returns the aspect ratio as a float.
         Example: 1920x1080 => 16/9 => 1.7777777777777777
@@ -26,6 +36,7 @@ class Size:
         """Returns the aspect ratio as a tuple of integers.
         Example: 1920x1080 => (16, 9)
         """
+        _ = self.width / self.height
         gcd = math.gcd(self.width, self.height)
         return self.width // gcd, self.height // gcd
 
@@ -35,12 +46,16 @@ class Size:
         """
         return Size(self.height, self.width)
 
-    def scale(self, factor: int) -> "Size":
+    def scale(self, factor: int | float) -> "Size":  # noqa: C901
         """Returns a new Size object with scaled width and height.
 
+        Non-integer factors are rounded to the nearest integer pixel.
         Example: 1920x1080, factor=2 => 3840x2160
+        Example: 1920x1080, factor=0.5 => 960x540
         """
-        return Size(self.width * factor, self.height * factor)
+        if factor <= 0:
+            raise ValueError(f"scale factor must be positive, got {factor!r}")
+        return Size(round(self.width * factor), round(self.height * factor))
 
 
 SIZES = {
@@ -60,7 +75,9 @@ SIZES = {
     "DCGA": Size(640, 400),
     "VGA": Size(640, 480),
     "SVGA": Size(800, 600),
-    "WSVGA": Size(1024, 600),  # 2 versions
+    "WSVGA": Size(
+        1024, 600,
+    ),  # 2 versions exist: 1024x600 and 1024x576; using 1024x600
     "DoubleVGA": Size(960, 640),
     "XGA": Size(1024, 768),
     "HD 720p": Size(1280, 720),
