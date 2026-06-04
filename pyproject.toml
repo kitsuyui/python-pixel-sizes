@@ -27,7 +27,7 @@ package-data = { "pixel_sizes" = ["py.typed"] }
 package-dir = { "pixel_sizes" = "pixel_sizes" }
 
 [tool.setuptools_scm]
-write_to = "pixel_sizes/_version.py"
+version_file = "pixel_sizes/_version.py"
 version_scheme = "only-version"
 local_scheme = "no-local-version"
 
