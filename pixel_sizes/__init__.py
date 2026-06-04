@@ -46,12 +46,16 @@ class Size:
         """
         return Size(self.height, self.width)
 
-    def scale(self, factor: int) -> "Size":
+    def scale(self, factor: int | float) -> "Size":  # noqa: C901
         """Returns a new Size object with scaled width and height.
 
+        Non-integer factors are rounded to the nearest integer pixel.
         Example: 1920x1080, factor=2 => 3840x2160
+        Example: 1920x1080, factor=0.5 => 960x540
         """
-        return Size(self.width * factor, self.height * factor)
+        if factor <= 0:
+            raise ValueError(f"scale factor must be positive, got {factor!r}")
+        return Size(round(self.width * factor), round(self.height * factor))
 
 
 SIZES = {
