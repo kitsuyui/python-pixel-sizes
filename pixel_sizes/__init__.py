@@ -116,4 +116,69 @@ SIZES = {
     "UHDTV2": Size(7680, 4320),
 }
 
-__all__ = ["SIZES", "Size", "__version__"]
+# Canonical key for each unique resolution.  All other keys in SIZES that
+# map to the same Size value are aliases for the canonical one listed here.
+# Keys that do NOT appear in _CANONICAL_KEYS are alias entries.
+# Alias groups:
+#   "720p"  <- "HD", "HD 720p"
+#   "1080p" <- "Full HD", "HD 1080p", "1080i"
+#             (note: "1080i" is interlaced; Size only stores pixel dimensions)
+#   "HD+"   <- "WXGA++"
+#   "4K UHD"<- "4K UHDTV", "UHDTV1", "2160p"
+#   "8K UHD"<- "UHDTV2"
+_CANONICAL_KEYS: frozenset[str] = frozenset(
+    {
+        # p-notation (progressive-scan)
+        "144p",
+        "240p",
+        "360p",
+        "480p",
+        "720p",
+        "1080p",
+        # VESA / display-standard names
+        "QCIF",
+        "QVGA",
+        "HVGA",
+        "DCGA",
+        "VGA",
+        "SVGA",
+        "WSVGA",
+        "DoubleVGA",
+        "XGA",
+        "WXGA",
+        "FWXGA",
+        "WXGA+",
+        "HD+",
+        "SXGA+",
+        "WSXGA+",
+        "UXGA",
+        "WQHD",
+        "WUXGA",
+        "QWXGA",
+        "QXGA",
+        "WQXGA",
+        "QUXGA",
+        "QUXGA Wide",
+        # Digital Cinema Initiative (DCI)
+        "DCI 2K",
+        "DCI 2K (flat cropped)",
+        "DCI 2K (CinemaScope cropped)",
+        "DCI 4K",
+        "DCI 4K (flat cropped)",
+        "DCI 4K (CinemaScope cropped)",
+        # Ultra High Definition Television (UHDTV)
+        "4K UHD",
+        "5K",
+        "5K2K",
+        "8K UHD",
+    },
+)
+
+# Subset of SIZES with exactly one entry per unique resolution.
+# Use when you need to iterate distinct sizes; SIZES keeps all alias keys
+# for look-up convenience while CANONICAL_SIZES provides the deduplicated view.
+CANONICAL_SIZES: dict[str, Size] = {
+    k: v for k, v in SIZES.items() if k in _CANONICAL_KEYS
+}
+
+__all__ = ["CANONICAL_SIZES", "SIZES", "Size", "__version__"]
