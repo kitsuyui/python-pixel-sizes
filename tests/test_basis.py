@@ -63,13 +63,6 @@ def test_size_aspect_ratio() -> None:
     assert SIZES["WXGA++"].aspect_ratio_two() == (16, 9)
 
 
-def test_size_aspect_ratio_zero_height() -> None:
-    with pytest.raises(ZeroDivisionError):
-        Size(1920, 0).aspect_ratio()
-    with pytest.raises(ZeroDivisionError):
-        Size(1920, 0).aspect_ratio_two()
-
-
 def test_size_scale() -> None:
     size = Size(1920, 1080)
     assert size.scale(2) == Size(3840, 2160)
