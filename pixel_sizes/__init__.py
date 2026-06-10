@@ -1,4 +1,5 @@
 import math
+import warnings
 from dataclasses import dataclass
 from types import MappingProxyType
 
@@ -33,13 +34,23 @@ class Size:
         """
         return self.width / self.height
 
-    def aspect_ratio_two(self) -> tuple[int, int]:
-        """Returns the aspect ratio as a tuple of integers.
+    def aspect_ratio_fraction(self) -> tuple[int, int]:
+        """Returns the reduced aspect ratio as a (numerator, denominator).
+
         Example: 1920x1080 => (16, 9)
         """
         _ = self.width / self.height
         gcd = math.gcd(self.width, self.height)
         return self.width // gcd, self.height // gcd
+
+    def aspect_ratio_two(self) -> tuple[int, int]:
+        """Deprecated: use aspect_ratio_fraction() instead."""
+        warnings.warn(
+            "aspect_ratio_two() is deprecated; use aspect_ratio_fraction().",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        return self.aspect_ratio_fraction()
 
     def rotate(self) -> "Size":
         """Returns a new Size object with the width and height swapped.
@@ -50,9 +61,14 @@ class Size:
     def scale(self, factor: int | float) -> "Size":  # noqa: C901
         """Returns a new Size object with scaled width and height.
 
-        Non-integer factors are rounded to the nearest integer pixel.
+        Non-integer factors are rounded using Python's built-in round(),
+        which applies round-half-to-even (banker's rounding, IEEE 754).
+        When a scaled dimension lands exactly on 0.5, it rounds toward the
+        nearest even integer rather than always rounding up.
+
         Example: 1920x1080, factor=2 => 3840x2160
         Example: 1920x1080, factor=0.5 => 960x540
+        Example: Size(3, 2).scale(1.5) => Size(4, 3)  # 4.5 rounds to 4 (even)
         """
         if factor <= 0:
             raise ValueError(f"scale factor must be positive, got {factor!r}")
