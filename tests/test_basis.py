@@ -1,3 +1,5 @@
+from typing import Any
+
 import pytest
 
 from pixel_sizes import CANONICAL_SIZES, SIZES, Size
@@ -77,6 +79,16 @@ def test_canonical_sizes_keys_in_sizes() -> None:
 def test_sizes_has_duplicate_values() -> None:
     all_values = list(SIZES.values())
     assert len(all_values) > len(set(all_values))
+
+
+def test_sizes_is_read_only_mapping() -> None:
+    sizes: Any = SIZES
+
+    with pytest.raises(TypeError):
+        sizes["custom"] = Size(1, 1)
+
+    with pytest.raises(TypeError):
+        del sizes["Full HD"]
 
 
 def test_size_scale() -> None:
