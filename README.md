@@ -30,7 +30,8 @@ SIZES['Full HD'].scale(2)  # Size(width=3840, height=2160)
 
 ### `SIZES`
 
-A `dict[str, Size]` containing named display resolutions.
+A read-only mapping of type `Mapping[str, Size]` containing named display
+resolutions. Attempting to assign or delete entries raises `TypeError`.
 Representative keys (full list in source):
 
 ```python
